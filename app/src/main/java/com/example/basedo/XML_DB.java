@@ -1,12 +1,8 @@
 package com.example.basedo;
 
-import android.Manifest;
-import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
-
-import androidx.core.app.ActivityCompat;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,52 +34,27 @@ public class XML_DB
         this.xmlFile = Environment.getExternalStorageDirectory().getAbsolutePath()+"/XML_READ_WRITE/"+ xmlFile;
         try {
             Prepare_File(Mode);
-        }catch (Exception E){
+        }catch (Exception ignored){
 
         }
     }
-    private void Prepare_File(char Mode)
+    public void Write_DATA(Data dat)
     {
-        File F = null;
-        try {
-            F=new File(xmlFile);
-            if(!F.exists()){
-                F.createNewFile();
-                Mode='W';
-            }
-            if(Mode=='W') Start_Writing();//Write override
-            else if(Mode=='R') Start_Reading();//Read
-            else if(Mode=='A');//append
-        }
-        catch (FileNotFoundException Ep)
+        try
         {
+            Start_Writing();
+            StringWriter writer = new StringWriter();
+            XmlSerializer xmlSerializer = Xml.newSerializer();
+            xmlSerializer.setOutput(writer);
+            dat.ToXML(xmlSerializer);
+            xmlSerializer.flush();
+            Strem.write(writer.toString().getBytes(StandardCharsets.UTF_8));
+            End_Writing();
         } catch (IOException e) {
-            Log.i(null, "Prepare_File: HELL");
             e.printStackTrace();
         }
     }
-    private void Start_Reading(){
-        try
-        {
-            if(Strem!=null)
-            {
-                End_Writing();
-            }
-            if(Inp==null)Inp=new FileInputStream(xmlFile);
-        }
-        catch (Exception E)
-        {
-
-        }
-    }
-    private void Stop_Reading()
-    {
-        try {
-            Inp.close();
-            Inp=null;
-        }catch (Exception e){
-        }
-    }
+    //Dom Parser
     public List<Data> Read_All_Data()
     {
         List<Data> FullBd=new ArrayList<Data>();
@@ -115,55 +86,83 @@ public class XML_DB
         Stop_Reading();
         return  FullBd;
     }
-    private void Start_Writing(){
+    private void Prepare_File(char Mode)
+    {
+        File F;
         try {
-            Strem=new FileOutputStream(xmlFile,false);
+            F=new File(xmlFile);
+            if(!F.exists()){
+                F.createNewFile();
+                Mode='W';
+            }
+            if(Mode=='W') Init_Writing();//Write override
+            else if(Mode=='R') Start_Reading();//Read
+            else if(Mode=='A');//append
+        }
+        catch (IOException e) {
+            Log.i(null, "Prepare_File: HELL");
+            e.printStackTrace();
+        }
+    }
+
+    private void Start_Reading(){
+        try
+        {
+            if(Strem!=null)
+            {
+               Strem.close();
+               Strem=null;
+            }
+            if(Inp==null)Inp=new FileInputStream(xmlFile);
+        }
+        catch (Exception E)
+        {
+        }
+    }
+    private void Stop_Reading()
+    {
+        try {
+            Inp.close();
+            Inp=null;
+        }catch (Exception e){
+        }
+    }
+    private void Init_Writing(){
+        try
+        {
+            if(Strem==null)Strem=new FileOutputStream(xmlFile,false);
             XmlSerializer xmlSerializer = Xml.newSerializer();
             StringWriter writer = new StringWriter();
             xmlSerializer.setOutput(writer);
             xmlSerializer.startDocument("UTF-8", true);
-            xmlSerializer.startTag(null,"Root")
+            xmlSerializer.startTag(null,"Root");
             xmlSerializer.flush();
             Strem.write(writer.toString().getBytes(StandardCharsets.UTF_8));
-            Strem.close();
-            Strem=null;
-        }
-        catch (FileNotFoundException e)
+        } catch (IOException e)
         {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void Write_DATA(Data dat)
-    {
-        try
-        {
-            if(Strem==null) Strem=new FileOutputStream(xmlFile,true);
+    private void Start_Writing() throws IOException {
+        List<Data> data=Read_All_Data();
+        Init_Writing();
+        if(data.size()>0){
             StringWriter writer = new StringWriter();
             XmlSerializer xmlSerializer = Xml.newSerializer();
             xmlSerializer.setOutput(writer);
-            dat.ToXML(xmlSerializer);
+            for (Data dat: data) {
+                dat.ToXML(xmlSerializer);
+            }
             xmlSerializer.flush();
             Strem.write(writer.toString().getBytes(StandardCharsets.UTF_8));
-            Strem.close();
-            Strem=null;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-    public void End_Writing(){
-        StringWriter writer = new StringWriter();
-        XmlSerializer xmlSerializer = Xml.newSerializer();
+
+
+    private void End_Writing(){
         try {
             if(Strem==null) Strem=new FileOutputStream(xmlFile,true);
-            xmlSerializer.setOutput(writer);
-            xmlSerializer.endDocument();
-            xmlSerializer.endTag(null,"Root")
-            xmlSerializer.flush();
-            Strem.write(writer.toString().getBytes(StandardCharsets.UTF_8));
+            Strem.write("</Root>".getBytes(StandardCharsets.UTF_8));
             Strem.close();
             Strem=null;
         } catch (IOException e) {

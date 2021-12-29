@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Db.End_Writing();
         super.onDestroy();
     }
 }
