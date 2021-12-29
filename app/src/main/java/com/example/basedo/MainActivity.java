@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+
+
         Create_Dialog();
         findViewById(R.id.GoInsc).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,16 +45,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==0){
-            if(resultCode==RESULT_OK)Db=new XML_DB("Datas.xml");
+            if(resultCode==RESULT_OK)Db=new XML_DB("Datas.xml",'W');
             else{
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-            }
-        }
-        if(requestCode==1){
-            if(resultCode!=RESULT_OK) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
             }
         }
     }
@@ -65,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         build.setView(vi);
         EditText LastName=vi.findViewById(R.id.LastName);
         EditText FirstName=vi.findViewById(R.id.FirstName);
-        build.setTitle("Enter your info").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        build.setTitle("Enter your info").setPositiveButton("Write To XML", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String Fname= FirstName.getText().toString();
@@ -86,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void insert_Direct(String Fname,String Lname)
     {
-        if(Db==null)Db=new XML_DB("Datas.xml");
+        if(Db==null)Db=new XML_DB("Datas.xml",'A');
         Db.Write_DATA(new Data(Fname,Lname));
         Toast.makeText(this,"Inserted Data : Last Name "+Lname+" First Name :"+Fname,Toast.LENGTH_LONG).show();
     }

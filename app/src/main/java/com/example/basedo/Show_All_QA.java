@@ -14,16 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Show_All_QA extends AppCompatActivity {
-   /* Mydb DATABase=new Mydb(this);
+    XML_DB DATABase=new XML_DB("Datas.xml",'R');
     List<Data> dataList;
     Button bt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_qa);
-        dataList=DATABase.Get_All_Names();
+        dataList=DATABase.Read_All_Data();
         RecyclerView lis=findViewById(R.id.List_items);
-        CustomAdapter Adb=new CustomAdapter(DATABase,dataList,lis,this);
+        CustomAdapter Adb=new CustomAdapter(dataList);
+        lis.setAdapter(Adb);
         bt=findViewById(R.id.Returne);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,5 +36,5 @@ public class Show_All_QA extends AppCompatActivity {
     public void goBack(){
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
-    }*/
+    }
 }

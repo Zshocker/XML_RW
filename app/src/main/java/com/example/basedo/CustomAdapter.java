@@ -1,13 +1,9 @@
 package com.example.basedo;
 
-import static android.content.ContentValues.TAG;
 
-import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,7 +14,6 @@ import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
     private List<Data> localDataSet;
-    Activity act=null;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private  TextView IdView;
         private  TextView LnameView;
@@ -49,15 +44,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         localDataSet = dataSet;
     }
 
-
-    public CustomAdapter(List<Data> localDataSet, RecyclerView layout) {
+    public CustomAdapter( List<Data> localDataSet, RecyclerView layout) {
         this.localDataSet = localDataSet;
-        layout.setAdapter(this);
-    }
-
-    public CustomAdapter( List<Data> localDataSet, RecyclerView layout, Activity act) {
-        this.localDataSet = localDataSet;
-        this.act = act;
         layout.setAdapter(this);
     }
 
@@ -79,10 +67,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getIdView().setText( Integer.toString(localDataSet.get(position).getId()));
+        int id=localDataSet.get(position).getId();
+        if(id!=-1)
+        viewHolder.getIdView().setText(Integer.toString(id));
         viewHolder.getLnameView().setText(localDataSet.get(position).getLname());
         viewHolder.getFnameView().setText(localDataSet.get(position).getFname());
-        viewHolder.itemView.setId(localDataSet.get(position).getId());
     }
     @Override
     public int getItemCount() {
