@@ -3,4 +3,8 @@
     <string name="firstInput">First Name</string>
     <string name="second_Input">Last Name</string>
     <string name="delete">Delete</string>
+    <string name="top_10_songs">TOP 10 SONGS</string>
+    <string name="show_all_inserted_names">show All inserted names</string>
+    <string name="inscrire">Inscrire</string>
+    <string name="inscriree">Inscrire ?</string>
 </resources>

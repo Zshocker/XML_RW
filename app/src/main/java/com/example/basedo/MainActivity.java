@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-
-
         Create_Dialog();
         findViewById(R.id.GoInsc).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent ints=new Intent(getBaseContext(), Show_All_QA.class);
                 startActivity(ints);
+            }
+        });
+        findViewById(R.id.SHOW_ALL_SONGS).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent i=new Intent(getBaseContext(),Songs_act.class);
+               startActivity(i);
             }
         });
     }
