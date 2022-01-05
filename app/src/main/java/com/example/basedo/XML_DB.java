@@ -31,7 +31,7 @@ public class XML_DB {
     FileInputStream Inp;
 
     public XML_DB(String xmlFile, char Mode) {
-        this.xmlFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/XML_READ_WRITE/" + xmlFile;
+        this.xmlFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + xmlFile;
         try {
             Prepare_File(Mode);
         } catch (Exception ignored) {
@@ -59,6 +59,8 @@ public class XML_DB {
         List<Data> FullBd = new ArrayList<Data>();
         Data DEE;
         Start_Reading();
+        if(Inp!=null)
+        {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder documentBuilder = factory.newDocumentBuilder();
@@ -81,6 +83,7 @@ public class XML_DB {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
         }
         Stop_Reading();
         return FullBd;
@@ -117,8 +120,11 @@ public class XML_DB {
 
     private void Stop_Reading() {
         try {
-            Inp.close();
-            Inp = null;
+            if(Inp!=null)
+            {
+                Inp.close();
+                Inp = null;
+            }
         } catch (Exception e) {
         }
     }

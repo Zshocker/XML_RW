@@ -99,7 +99,8 @@ public class XML_URI
     }
     private void Stop_Reading()
     {
-        try {
+        try
+        {
             Inp.close();
             urlConnection.disconnect();
             urlConnection=null;

@@ -25,7 +25,9 @@ public class Songs_act extends AppCompatActivity {
         setContentView(R.layout.activity_songs);
         Lis=findViewById(R.id.Rect);
         Async S= new Async();
-        S.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml");
+        Intent it=getIntent();
+        String st=it.getStringExtra("lien");
+        S.execute(st);
     }
     class Async extends AsyncTask<String,Void, List<Song_Data>>
     {
