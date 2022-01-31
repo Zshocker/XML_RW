@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">XML Read_Write</string>
+    <string name="app_name">Files Reader</string>
     <string name="firstInput">First Name</string>
     <string name="second_Input">Last Name</string>
     <string name="delete">Delete</string>
@@ -7,4 +7,5 @@
     <string name="show_all_inserted_names">show All inserted names</string>
     <string name="inscrire">Inscrire</string>
     <string name="inscriree">Inscrire ?</string>
+    <string name="search_for_images">Search for images</string>
 </resources>

@@ -11,19 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/inscriree"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/GoInsc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
         android:id="@+id/GoInsc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
         android:text="@string/inscrire"
+        app:layout_constraintBottom_toTopOf="@+id/GoToAllRes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +33,10 @@
         android:id="@+id/GoToAllRes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:text="@string/show_all_inserted_names"
+        app:layout_constraintBottom_toTopOf="@+id/SHOW_ALL_SONGS"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GoInsc" />
 
@@ -43,11 +44,33 @@
         android:id="@+id/SHOW_ALL_SONGS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:text="@string/top_10_songs"
+        app:layout_constraintBottom_toTopOf="@+id/Whet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GoToAllRes" />
 
+    <Button
+        android:id="@+id/Whet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Whether"
+        app:layout_constraintBottom_toTopOf="@+id/search_images"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SHOW_ALL_SONGS"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/search_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_for_images"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Whet" />
 </androidx.constraintlayout.widget.ConstraintLayout>

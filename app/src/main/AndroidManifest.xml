@@ -18,7 +18,13 @@
             android:name=".Songs_act"
             android:exported="false" />
         <activity
+            android:name=".Weather_act"
+            android:exported="false" />
+        <activity
             android:name=".Show_All_QA"
+            android:exported="false" />
+        <activity
+            android:name=".Images_act"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

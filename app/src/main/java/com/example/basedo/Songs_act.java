@@ -1,7 +1,6 @@
 package com.example.basedo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -34,7 +33,7 @@ public class Songs_act extends AppCompatActivity {
 
         @Override
         protected List<Song_Data> doInBackground(String... strings) {
-            return new XML_URI().Read_All_Data(strings[0]);
+            return new onlineFilesReader().Read_All_SONG_Data_XML(strings[0]);
         }
 
         @Override
